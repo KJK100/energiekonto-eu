@@ -91,6 +91,50 @@ export const mockVouchers = [
   { id: 8, brand: 'Wiener Prater', category: 'Erlebnis', value: 20, priceEUT: 22, priceLoyalty: 2000, logo: '🎡', color: '#16A34A' },
 ];
 
+export const mockSalzburgAGOffers = [
+  {
+    id: 'sag-1',
+    title: 'Ökostrom Wechselbonus',
+    description: 'Wechsle jetzt zu Salzburg AG Ökostrom und erhalte 100 EUT Gutschrift auf dein Energiekonto.',
+    cta: 'Jetzt wechseln',
+    badge: 'Exklusiv für IoE-Nutzer',
+    highlight: '100 EUT Bonus',
+    color: '#E30613',
+    tag: 'Energie-Partner',
+  },
+  {
+    id: 'sag-2',
+    title: 'PV-Anlage Finanzierung',
+    description: 'Salzburg AG finanziert deine neue PV-Anlage ab 0,99% p.a. — direkte Verknüpfung mit deinem IoE Node.',
+    cta: 'Angebot anfordern',
+    badge: 'Sonderkonditionen',
+    highlight: 'Ab 0,99% Finanzierung',
+    color: '#E30613',
+    tag: 'Solar & Speicher',
+  },
+  {
+    id: 'sag-3',
+    title: 'E-Mobilität Kombipaket',
+    description: 'Salzburg AG Wallbox + ChargePoint-Integration + 50 EUT Startguthaben. Alles aus einer Hand.',
+    cta: 'Paket entdecken',
+    badge: 'Neu',
+    highlight: '50 EUT Startguthaben',
+    color: '#E30613',
+    tag: 'E-Mobilität',
+  },
+];
+
+export const mockGutscheinAtVouchers = [
+  { id: 'gat-1', brand: 'Intersport', category: 'Sport', value: 50, priceEUT: 52, priceLoyalty: 5000, logo: '🏃', color: '#FF6B00', source: 'gutschein.at' },
+  { id: 'gat-2', brand: 'Douglas', category: 'Beauty', value: 30, priceEUT: 31, priceLoyalty: 3000, logo: '💄', color: '#9B1B30', source: 'gutschein.at' },
+  { id: 'gat-3', brand: 'XXXLutz', category: 'Wohnen', value: 100, priceEUT: 105, priceLoyalty: 10000, logo: '🛋️', color: '#CC0000', source: 'gutschein.at' },
+  { id: 'gat-4', brand: 'Wienerwald', category: 'Gastronomie', value: 20, priceEUT: 21, priceLoyalty: 2000, logo: '🍗', color: '#E8A000', source: 'gutschein.at' },
+  { id: 'gat-5', brand: 'Libro', category: 'Shopping', value: 25, priceEUT: 26, priceLoyalty: 2500, logo: '📚', color: '#1565C0', source: 'gutschein.at' },
+  { id: 'gat-6', brand: 'Thermen Amadé', category: 'Erlebnis', value: 40, priceEUT: 43, priceLoyalty: 4000, logo: '🌊', color: '#006994', source: 'gutschein.at' },
+  { id: 'gat-7', brand: 'Humanic', category: 'Shopping', value: 35, priceEUT: 37, priceLoyalty: 3500, logo: '👠', color: '#8B1A1A', source: 'gutschein.at' },
+  { id: 'gat-8', brand: 'Stadthalle Graz', category: 'Erlebnis', value: 60, priceEUT: 64, priceLoyalty: 6000, logo: '🎭', color: '#4A148C', source: 'gutschein.at' },
+];
+
 export const mockOwnedVouchers = [
   { id: 101, brand: 'Amazon', value: 50, status: 'active', code: 'AMZ-4X9K-EUT1', expires: '2026-12-31', remaining: 50 },
   { id: 102, brand: 'Booking.com', value: 100, status: 'active', code: 'BKG-8Y2M-IOE3', expires: '2026-09-30', remaining: 60 },

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Zap, ShoppingBag, ChevronRight, QrCode } from 'lucide-react';
-import { mockAIWallet, mockSpeaxPackages, mockGraisPackages, mockTaskLog, mockVouchers, mockOwnedVouchers, mockEnergyData } from '../data/mockData';
+import { mockAIWallet, mockSpeaxPackages, mockGraisPackages, mockTaskLog, mockVouchers, mockOwnedVouchers, mockEnergyData, mockGutscheinAtVouchers } from '../data/mockData';
+import { GutscheinAtBanner, GutscheinAtBadge, SalzburgAGCard } from './AdBanners';
 
 const TABS = ['AI Tokens', 'Bonus Galaxy', 'Mein Wallet'];
 
@@ -117,7 +118,10 @@ function VoucherCard({ v, balance, onBuy }) {
           </div>
           <div>
             <div style={{ fontWeight: 700, color: '#F1F5F9' }}>{v.brand}</div>
-            <span style={{ background: '#2D3748', color: '#A0AEC0', padding: '2px 8px', borderRadius: 20, fontSize: 11 }}>{v.category}</span>
+            <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap', marginTop: 3 }}>
+              <span style={{ background: '#2D3748', color: '#A0AEC0', padding: '2px 8px', borderRadius: 20, fontSize: 11 }}>{v.category}</span>
+              {v.source === 'gutschein.at' && <GutscheinAtBadge />}
+            </div>
           </div>
         </div>
         <div style={{ textAlign: 'right' }}>
@@ -257,8 +261,11 @@ export default function Module3Veredelt() {
   const [buyTarget, setBuyTarget] = useState(null);
   const [buyMethod, setBuyMethod] = useState(null);
 
+  const [gutscheinSource, setGutscheinSource] = useState('alle');
   const categories = ['Alle', 'Shopping', 'Reise', 'Gastronomie', 'Erlebnis'];
-  const filteredVouchers = voucherFilter === 'Alle' ? mockVouchers : mockVouchers.filter(v => v.category === voucherFilter);
+  const allVouchers = [...mockVouchers, ...mockGutscheinAtVouchers];
+  const sourceFiltered = gutscheinSource === 'gutschein.at' ? mockGutscheinAtVouchers : gutscheinSource === 'bonus-galaxy' ? mockVouchers : allVouchers;
+  const filteredVouchers = voucherFilter === 'Alle' ? sourceFiltered : sourceFiltered.filter(v => v.category === voucherFilter);
 
   const handleBuy = (v, method) => {
     setBuyTarget(v);
@@ -345,30 +352,65 @@ export default function Module3Veredelt() {
 
       {tab === 'Bonus Galaxy' && (
         <div>
+          {/* Gutschein.at Partner Banner */}
+          <GutscheinAtBanner />
+
+          {/* Guthaben-Info */}
+          <div style={{ background: 'rgba(245,158,11,0.1)', border: '1px solid rgba(245,158,11,0.3)', borderRadius: 10, padding: '12px 16px', marginBottom: 16, display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 8 }}>
+            <div style={{ fontSize: 13, color: '#E2E8F0' }}>
+              ⭐ <strong>{mockEnergyData.loyaltyPoints.toLocaleString()}</strong> Loyalty Points &nbsp;|&nbsp;
+              🔋 <strong>{mockEnergyData.eutBalance.toLocaleString()}</strong> EUT
+            </div>
+          </div>
+
+          {/* Source Filter */}
+          <div style={{ display: 'flex', gap: 6, marginBottom: 14, flexWrap: 'wrap' }}>
+            {[
+              { key: 'alle', label: '🌐 Alle Angebote' },
+              { key: 'bonus-galaxy', label: '✨ Bonus Galaxy' },
+              { key: 'gutschein.at', label: '🎟️ gutschein.at' },
+            ].map(s => (
+              <button
+                key={s.key}
+                onClick={() => setGutscheinSource(s.key)}
+                style={{
+                  padding: '6px 14px', borderRadius: 20, border: 'none', cursor: 'pointer', fontWeight: 700, fontSize: 12,
+                  background: gutscheinSource === s.key ? (s.key === 'gutschein.at' ? '#FF6B00' : '#F59E0B') : '#2D3748',
+                  color: gutscheinSource === s.key ? '#fff' : '#A0AEC0',
+                }}>
+                {s.label}
+              </button>
+            ))}
+          </div>
+
+          {/* Category Filter */}
           <div style={{ display: 'flex', gap: 8, marginBottom: 20, flexWrap: 'wrap' }}>
             {categories.map(c => (
               <button
                 key={c}
                 onClick={() => setVoucherFilter(c)}
                 style={{
-                  padding: '6px 16px', borderRadius: 20, border: 'none', cursor: 'pointer', fontWeight: 600, fontSize: 13,
-                  background: voucherFilter === c ? '#F59E0B' : '#2D3748',
-                  color: voucherFilter === c ? '#000' : '#E2E8F0',
+                  padding: '5px 14px', borderRadius: 20, border: 'none', cursor: 'pointer', fontWeight: 600, fontSize: 12,
+                  background: voucherFilter === c ? '#4A5568' : 'transparent',
+                  color: voucherFilter === c ? '#E2E8F0' : '#718096',
+                  border: `1px solid ${voucherFilter === c ? '#4A5568' : '#2D3748'}`,
                 }}>
                 {c}
               </button>
             ))}
           </div>
 
-          <div style={{ background: 'rgba(245,158,11,0.1)', border: '1px solid rgba(245,158,11,0.3)', borderRadius: 10, padding: '12px 16px', marginBottom: 20, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <div style={{ fontSize: 13, color: '#E2E8F0' }}>
-              ⭐ <strong>{mockEnergyData.loyaltyPoints.toLocaleString()}</strong> Loyalty Points verfügbar &nbsp;|&nbsp;
-              🔋 <strong>{mockEnergyData.eutBalance.toLocaleString()}</strong> EUT Guthaben
-            </div>
-          </div>
-
+          {/* Voucher Grid */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: 16 }}>
             {filteredVouchers.map(v => <VoucherCard key={v.id} v={v} balance={mockEnergyData.eutBalance} onBuy={handleBuy} />)}
+          </div>
+
+          {/* Salzburg AG Cross-Sell */}
+          <div style={{ marginTop: 28 }}>
+            <div style={{ fontSize: 12, color: '#718096', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 12 }}>
+              Partner-Empfehlung
+            </div>
+            <SalzburgAGCard offerId="sag-3" />
           </div>
         </div>
       )}

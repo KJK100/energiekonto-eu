@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Zap, TrendingUp, TrendingDown, Battery, Star, Activity, ArrowUpRight, ArrowDownRight, Clock, Download } from 'lucide-react';
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 import { mockEnergyData, mockEnergyHistory, mockTransactions, mockNodes } from '../data/mockData';
+import { SalzburgAGBanner, SalzburgAGMiniWidget } from './AdBanners';
 
 function StatCard({ icon, label, value, unit, change, color = '#00C896', sub }) {
   return (
@@ -181,6 +182,9 @@ export default function Module1Dashboard() {
         />
       </div>
 
+      {/* Salzburg AG Partner Banner */}
+      <SalzburgAGBanner />
+
       {/* Energy Flow + Chart */}
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.5fr', gap: 16, marginBottom: 20 }}>
         <EnergyFlowCard data={mockEnergyData} />
@@ -221,8 +225,11 @@ export default function Module1Dashboard() {
         </div>
       </div>
 
+      {/* Salzburg AG Mini */}
+      <SalzburgAGMiniWidget />
+
       {/* Transactions */}
-      <div style={{ background: '#1A1F2E', border: '1px solid #2D3748', borderRadius: 12, padding: 20 }}>
+      <div style={{ background: '#1A1F2E', border: '1px solid #2D3748', borderRadius: 12, padding: 20, marginTop: 12 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
           <div style={{ fontWeight: 600, color: '#F1F5F9' }}>Transaktionshistorie EUT</div>
           <div style={{ display: 'flex', gap: 8 }}>
