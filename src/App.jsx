@@ -74,11 +74,6 @@ function ImpressumPage() {
               <div style={{ fontSize: 15, fontWeight: 700, color: '#F1F5F9' }}>Klaus Kohlmayr</div>
               <div style={{ fontSize: 13, color: '#A0AEC0' }}>Internet of Energy</div>
             </div>
-            <div>
-              <div style={{ fontSize: 13, color: '#718096', marginBottom: 4 }}>Co-Autor</div>
-              <div style={{ fontSize: 15, fontWeight: 700, color: '#F1F5F9' }}>David Spanberger</div>
-              <div style={{ fontSize: 13, color: '#A0AEC0' }}>Internet of Energy</div>
-            </div>
           </div>
         </div>
 
@@ -274,7 +269,7 @@ export default function App() {
       <div style={{ borderTop: '1px solid #1E2535', padding: '16px 20px' }}>
         <div style={{ maxWidth: 1100, margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 8 }}>
           <span style={{ fontSize: 11, color: '#4A5568' }}>
-            energiekonto.eu — Demo-Applikation | Internet of Energy Platform | v1.0 | Klaus Kohlmayr & David Spanberger
+            energiekonto.eu — Demo-Applikation | Internet of Energy Platform | v1.0 | Klaus Kohlmayr
           </span>
           <div style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
             <a
